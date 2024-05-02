@@ -11,6 +11,9 @@ my $cmdlinechipname = $ARGV[0];
 if ( not defined( $cmdlinechipname ) ) { die( "No chip name spcified!\n") };
 # mkdir( $cmdlinechipname ) or die("Cannot create output directory: " . $cmdlinechipname . "\n" );
 mkdir( $cmdlinechipname );
+mkdir( $cmdlinechipname . "/data" );
+mkdir( $cmdlinechipname . "/graphs" );
+
 
 my $cmdlinefilename = $ARGV[1];
 if ( not defined( $cmdlinefilename ) ) { 
@@ -119,7 +122,7 @@ print "Gate on power test.\n";
 $rawresultsvar =~ /GATEONPOWERTESTSTART(.*)GATEONPOWERTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find gate on power test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/gate_on_power_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/gate_on_power_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /-? ?[0-9\.]+/g );
@@ -138,7 +141,7 @@ print "Gate off power test.\n";
 $rawresultsvar =~ /GATEOFFPOWERTESTSTART(.*)GATEOFFPOWERTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find gate off power test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/gate_off_power_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/gate_off_power_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /-? ?[0-9\.]+/g );
@@ -157,7 +160,7 @@ print "Pin A rise threshold.\n";
 $rawresultsvar =~ /PINARISETHRESHOLDTESTSTART(.*)PINARISETHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin A rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_a_rise_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_a_rise_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -174,7 +177,7 @@ print "Pin B rise threshold.\n";
 $rawresultsvar =~ /PINBRISETHRESHOLDTESTSTART(.*)PINBRISETHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin B rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_b_rise_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_b_rise_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -191,7 +194,7 @@ print "Pin AB rise threshold.\n";
 $rawresultsvar =~ /PINABRISETHRESHOLDTESTSTART(.*)PINABRISETHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin AB rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_ab_rise_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_ab_rise_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -213,7 +216,7 @@ print "Pin A fall threshold.\n";
 $rawresultsvar =~ /PINAFALLTHRESHOLDTESTSTART(.*)PINAFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin A fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_a_fall_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_a_fall_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -228,7 +231,7 @@ print "Pin B fall threshold.\n";
 $rawresultsvar =~ /PINBFALLTHRESHOLDTESTSTART(.*)PINBFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin B fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_b_fall_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_b_fall_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -244,7 +247,7 @@ print "Pin AB fall threshold.\n";
 $rawresultsvar =~ /PINABFALLTHRESHOLDTESTSTART(.*)PINABFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
 if ( not defined( $datasection ) ) { die( "Could not find pin AB fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/pin_ab_fall_threshold_test.tsv";
+$outputfilename = $cmdlinechipname . "/data/pin_ab_fall_threshold_test.tsv";
 print("Saving to " . $outputfilename . "\n" );
 open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
 @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
@@ -278,6 +281,10 @@ my @graphs = (
     "plotpower.gnuplot"
 );
 
+
+my $filepath = "./" . $cmdlinechipname . "/data/";
+my $graphpath = "./" . $cmdlinechipname . "/graphs/";
+
 mkdir( "./" . $cmdlinechipname . "/graphs");
 
 foreach my $file ( @files ) {
@@ -287,8 +294,8 @@ foreach my $file ( @files ) {
             "/opt/local/bin/gnuplot" , 
             "-c" , 
             "../gnuplot/" . $graph ,
-            "./" . $cmdlinechipname . "/" . $file , 
-            "./" . $cmdlinechipname . "/graphs/" . $file . "_" . $graph . ".png"
+            $filepath . $file , 
+            $graphpath . $file . "_" . $graph . ".png"
             );
     }
 }
