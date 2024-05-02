@@ -1,0 +1,5 @@
+Channel	Shunt	Bus	Current	Power
+VCC	0.65	3.97	6.50	26.00
+OUT	0.64	3.66	6.40	23.00
+INA	-0.01	3.37	-0.10	0.00
+INB	0.00	3.38	0.00	0.00
