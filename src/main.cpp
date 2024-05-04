@@ -52,11 +52,13 @@ void command_measureall();
 void command_sweepall();
 
 
-
-
 void command_do_all_tests();
 
+void command_transitioncheck( uint8_t direction , uint8_t checktype );
 
+
+void show_header();
+void do_measure();
 
 
 
@@ -117,6 +119,32 @@ void loop() {
   
   // do all available tests
   if ( commandline.startsWith( "doalltests" ) ) { command_do_all_tests(); }
+
+
+  // transition graph test
+  if ( commandline.startsWith( "tgraph" ) ) { 
+    commandline = commandline.substring( commandline.indexOf( " " ) + 1 );
+    
+    if ( commandline.startsWith( "and" ) ) {
+      Serial.println("Transition Graph for AND gate.");
+      show_header();
+      Serial.println( "0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0\t0.0" );
+      command_transitioncheck(0,0);
+      command_transitioncheck(1,1);
+      Serial.println( "5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0\t5.0" );
+    }
+
+    
+
+   }
+
+
+
+  if ( commandline.startsWith( "transitioncheck00" ) ) { command_transitioncheck( 0 , 0 ); }
+  if ( commandline.startsWith( "transitioncheck01" ) ) { command_transitioncheck( 0 , 1 ); }
+  if ( commandline.startsWith( "transitioncheck10" ) ) { command_transitioncheck( 1 , 0 ); }
+  if ( commandline.startsWith( "transitioncheck11" ) ) { command_transitioncheck( 1 , 1 ); }
+
 
 
   Serial.println("CMDINPUTREADY\n");
@@ -235,10 +263,6 @@ void command_measureall() {
 }
 
 
-
-
-
-
 void command_sweepall() {
 
   uint32_t counter;
@@ -257,20 +281,6 @@ void command_sweepall() {
     Serial.println("Done!\n");
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -428,8 +438,6 @@ void test_gate_on_power() {
 }
 
 
-
-
 // gate off power
 void test_gate_off_power() {
 
@@ -446,11 +454,6 @@ void test_gate_off_power() {
   Serial.println("GATEOFFPOWERTESTEND");
   
 }
-
-
-
-
-
 
 
 // rise
@@ -481,12 +484,6 @@ void test_pinA_rise_threshold() {
 }
 
 
-
-
-
-
-
-
 // pinB rise threshold
 void test_pinB_rise_threshold() {
 
@@ -513,11 +510,6 @@ void test_pinB_rise_threshold() {
 
   
 }
-
-
-
-
-
 
 
 // pinAB rise threshold
@@ -549,15 +541,7 @@ void test_pinAB_rise_threshold() {
 }
 
 
-
-
-
-
 // fall
-
-
-
-
 
 // pinA fall threshold
 void test_pinA_fall_threshold() {
@@ -588,9 +572,6 @@ void test_pinA_fall_threshold() {
 }
 
 
-
-
-
 // pinB fall threshold
 void test_pinB_fall_threshold() {
 
@@ -619,11 +600,6 @@ void test_pinB_fall_threshold() {
 
   
 }
-
-
-
-
-
 
 
 // pinAB fall threshold
@@ -659,11 +635,78 @@ void test_pinAB_fall_threshold() {
 
 
 
-
 /// @brief Perform a sweep test for a transition value
 /// @param direction Direction to sweep. 0 = up, 1 = down.
 /// @param checktype Type of output to check for. 0 = low to high, 1 = high to low.
-void transitioncheck( uint8_t direction , uint8_t checktype ) {
+void command_transitioncheck( uint8_t direction , uint8_t checktype ) {
+
+  // show_header();
+
+  if ( !direction ) {
+    // sweep up
+    mcp4725_c1.setVoltage( 0 , false );
+    mcp4725_c2.setVoltage( 0 , false );
+    for ( uint16_t loopcounter = 0 ; loopcounter < 4096 ; loopcounter++ ) {
+      mcp4725_c1.setVoltage( loopcounter , false );
+      mcp4725_c2.setVoltage( loopcounter , false );
+      delay(1);
+      float busvoltage = ina219_c2.getBusVoltage_V();
+      if (!checktype) {
+        // low to high
+        if ( busvoltage > 0.5 ) { 
+          //low to high has triggered
+          do_measure(0);
+          break;
+        }
+      }
+      else {
+        // high to low
+        if ( busvoltage < 4.0 ) {
+          // high to low has triggered
+          do_measure(0);
+          break;
+        }
+      }
+    }
+  }
+  else {
+    // sweep down
+    mcp4725_c1.setVoltage( 0 , false );
+    mcp4725_c2.setVoltage( 0 , false );
+    for ( uint16_t loopcounter = 4095 ; loopcounter > 0 ; loopcounter-- ) {
+      mcp4725_c1.setVoltage( loopcounter , false );
+      mcp4725_c2.setVoltage( loopcounter , false );
+      delay(1);
+      float busvoltage = ina219_c2.getBusVoltage_V();
+      if (!checktype) {
+        // low to high
+        if ( busvoltage > 1.0 ) { 
+          //low to high has triggered
+          do_measure(0);
+          break;
+        }
+      }
+      else {
+        // high to low
+        if ( busvoltage < 4.0 ) {
+          // high to low has triggered
+          do_measure(0);
+          break;
+        }
+      }
+    }
+  }
+
+
+
+
+
+  mcp4725_c1.setVoltage( 0 , false );
+  mcp4725_c2.setVoltage( 0 , false );
+   
+
+
+
 
 }
 
