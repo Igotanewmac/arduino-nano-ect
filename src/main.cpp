@@ -660,6 +660,23 @@ void test_pinAB_fall_threshold() {
 
 
 
+/// @brief Perform a sweep test for a transition value
+/// @param direction Direction to sweep. 0 = up, 1 = down.
+/// @param checktype Type of output to check for. 0 = low to high, 1 = high to low.
+void transitioncheck( uint8_t direction , uint8_t checktype ) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
