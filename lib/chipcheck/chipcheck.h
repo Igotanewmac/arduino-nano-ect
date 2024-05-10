@@ -1,7 +1,7 @@
 
 
-#ifndef THESEAREMYTGRAPHTESTS_H
-#define THESEAREMYTGRAPHTESTS_H
+#ifndef THESEAREMYCHIPCHECKTESTS_H
+#define THESEAREMYCHIPCHECKTESTS_H
 
 #include <Arduino.h>
 
@@ -21,11 +21,12 @@ extern Adafruit_MCP4725 mcp4725_c1;
 extern Adafruit_MCP4725 mcp4725_c2;
 
 
-void command_tgraph( String commandline );
 
 
-void command_transitioncheck( uint8_t direction , uint8_t checktype );
+void command_chipcheck( String commandline );
 
+
+void command_chipcheck_00();
 
 
 #endif

@@ -118,90 +118,93 @@ my $outputfilename;
 my @results;
 
 
-print "Gate on power test.\n";
 $rawresultsvar =~ /GATEONPOWERTESTSTART(.*)GATEONPOWERTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find gate on power test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/gate_on_power_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /-? ?[0-9\.]+/g );
-print $outputfilehandle "Channel\tShunt\tBus\tCurrent\tPower\n";
-print $outputfilehandle "VCC\t" . $results[1] . "\t" . $results[2] . "\t" . $results[3] . "\t" . $results[4] . "\n";
-print $outputfilehandle "OUT\t" . $results[5] . "\t" . $results[6] . "\t" . $results[7] . "\t" . $results[8] . "\n";
-print $outputfilehandle "INA\t" . $results[9] . "\t" . $results[10] . "\t" . $results[11] . "\t" . $results[12] . "\n";
-print $outputfilehandle "INB\t" . $results[13] . "\t" . $results[14] . "\t" . $results[15] . "\t" . $results[16] . "\n";
-close( $outputfilehandle );
+if ( defined( $datasection ) ) {
+    print("Found Gate on power test section.");
+    $outputfilename = $cmdlinechipname . "/data/gate_on_power_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /-? ?[0-9\.]+/g );
+    print $outputfilehandle "Channel\tShunt\tBus\tCurrent\tPower\n";
+    print $outputfilehandle "VCC\t" . $results[1] . "\t" . $results[2] . "\t" . $results[3] . "\t" . $results[4] . "\n";
+    print $outputfilehandle "OUT\t" . $results[5] . "\t" . $results[6] . "\t" . $results[7] . "\t" . $results[8] . "\n";
+    print $outputfilehandle "INA\t" . $results[9] . "\t" . $results[10] . "\t" . $results[11] . "\t" . $results[12] . "\n";
+    print $outputfilehandle "INB\t" . $results[13] . "\t" . $results[14] . "\t" . $results[15] . "\t" . $results[16] . "\n";
+    close( $outputfilehandle );
+}
 
 
 
 
-
-print "Gate off power test.\n";
 $rawresultsvar =~ /GATEOFFPOWERTESTSTART(.*)GATEOFFPOWERTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find gate off power test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/gate_off_power_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /-? ?[0-9\.]+/g );
-print $outputfilehandle "Channel\tShunt\tBus\tCurrent\tPower\n";
-print $outputfilehandle "VCC\t" . $results[1] . "\t" . $results[2] . "\t" . $results[3] . "\t" . $results[4] . "\n";
-print $outputfilehandle "OUT\t" . $results[5] . "\t" . $results[6] . "\t" . $results[7] . "\t" . $results[8] . "\n";
-print $outputfilehandle "INA\t" . $results[9] . "\t" . $results[10] . "\t" . $results[11] . "\t" . $results[12] . "\n";
-print $outputfilehandle "INB\t" . $results[13] . "\t" . $results[14] . "\t" . $results[15] . "\t" . $results[16] . "\n";
-close( $outputfilehandle );
+if ( defined( $datasection ) ) {
+    print "Found Gate off power test.\n";
+    $outputfilename = $cmdlinechipname . "/data/gate_off_power_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /-? ?[0-9\.]+/g );
+    print $outputfilehandle "Channel\tShunt\tBus\tCurrent\tPower\n";
+    print $outputfilehandle "VCC\t" . $results[1] . "\t" . $results[2] . "\t" . $results[3] . "\t" . $results[4] . "\n";
+    print $outputfilehandle "OUT\t" . $results[5] . "\t" . $results[6] . "\t" . $results[7] . "\t" . $results[8] . "\n";
+    print $outputfilehandle "INA\t" . $results[9] . "\t" . $results[10] . "\t" . $results[11] . "\t" . $results[12] . "\n";
+    print $outputfilehandle "INB\t" . $results[13] . "\t" . $results[14] . "\t" . $results[15] . "\t" . $results[16] . "\n";
+    close( $outputfilehandle );
+}
 
 
 
 
 
-print "Pin A rise threshold.\n";
 $rawresultsvar =~ /PINARISETHRESHOLDTESTSTART(.*)PINARISETHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin A rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_a_rise_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Found Pin A rise threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_a_rise_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
 
 
 
 
-
-print "Pin B rise threshold.\n";
 $rawresultsvar =~ /PINBRISETHRESHOLDTESTSTART(.*)PINBRISETHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin B rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_b_rise_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Pin B rise threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_b_rise_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
 
 
 
 
 
-print "Pin AB rise threshold.\n";
 $rawresultsvar =~ /PINABRISETHRESHOLDTESTSTART(.*)PINABRISETHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin AB rise threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_ab_rise_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Pin AB rise threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_ab_rise_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
 
 
 
@@ -211,51 +214,50 @@ close( $outputfilehandle );
 
 
 
-
-print "Pin A fall threshold.\n";
 $rawresultsvar =~ /PINAFALLTHRESHOLDTESTSTART(.*)PINAFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin A fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_a_fall_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Pin A fall threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_a_fall_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
 
 
-
-print "Pin B fall threshold.\n";
 $rawresultsvar =~ /PINBFALLTHRESHOLDTESTSTART(.*)PINBFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin B fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_b_fall_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Pin B fall threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_b_fall_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
 
 
 
-
-print "Pin AB fall threshold.\n";
 $rawresultsvar =~ /PINABFALLTHRESHOLDTESTSTART(.*)PINABFALLTHRESHOLDTESTEND/sm;
 $datasection = $1;
-if ( not defined( $datasection ) ) { die( "Could not find pin AB fall threshold test segment!\n" ); }
-$outputfilename = $cmdlinechipname . "/data/pin_ab_fall_threshold_test.tsv";
-print("Saving to " . $outputfilename . "\n" );
-open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
-@results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
-foreach my $resultrow (@results) {
-    print( $outputfilehandle  $resultrow . "\n" );
+if ( defined( $datasection ) ) {
+    print "Pin AB fall threshold.\n";
+    $outputfilename = $cmdlinechipname . "/data/pin_ab_fall_threshold_test.tsv";
+    print("Saving to " . $outputfilename . "\n" );
+    open( $outputfilehandle , ">" , $outputfilename) or die( "Could not open " . $outputfilename . " for output!\n");
+    @results = ( $datasection =~ /[0-9\-]+[0-9\-\.\t]+/g );
+    foreach my $resultrow (@results) {
+        print( $outputfilehandle  $resultrow . "\n" );
+    }
+    close( $outputfilehandle );
 }
-close( $outputfilehandle );
-
 
 
 

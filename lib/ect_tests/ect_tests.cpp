@@ -80,8 +80,8 @@ void test_gate_on_power() {
   Serial.println("GATEONPOWERTESTSTART");
 
   // set up chip for test.
-  mcp4725_c1.setVoltage( 0 , false );
-  mcp4725_c2.setVoltage( 0 , false );
+  mcp4725_c1.setVoltage( 4095 , false );
+  mcp4725_c2.setVoltage( 4095 , false );
 
   show_header();
 
@@ -98,8 +98,8 @@ void test_gate_off_power() {
   Serial.println("GATEOFFPOWERTESTSTART");
 
   // set up chip for test.
-  mcp4725_c1.setVoltage( 4095 , false );
-  mcp4725_c2.setVoltage( 4095 , false );
+  mcp4725_c1.setVoltage( 0 , false );
+  mcp4725_c2.setVoltage( 0 , false );
 
   show_header();
 
